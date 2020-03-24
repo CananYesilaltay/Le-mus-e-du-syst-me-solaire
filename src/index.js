@@ -1,5 +1,6 @@
 import './style/main.styl'
 import * as THREE from 'three'
+import Duck from './javascript/Exemple.js'
 
 // ------------------------
 // Sizes
@@ -26,16 +27,14 @@ directionalLight.position.y = 5
 directionalLight.position.z = 5
 scene.add(directionalLight)
 
+
 // ------------------------
 // Objects
 // ------------------------
 
-const dummy = new THREE.Mesh(
-    new THREE.SphereGeometry(1),
-    new THREE.MeshNormalMaterial()
-)
-
-scene.add(dummy)
+// Duck
+const duck = new Duck()
+scene.add(duck.group)
 
 
 // ------------------------
