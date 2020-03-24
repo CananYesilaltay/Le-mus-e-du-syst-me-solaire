@@ -21,8 +21,14 @@ sizes.height = window.innerHeight
 const scene = new THREE.Scene()
 
 // Lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)
+const ambientLight = new THREE.AmbientLight(0xffffff,1)
 scene.add(ambientLight)
+
+const pointLight = new THREE.PointLight(0xff9000, 1, 10)
+pointLight.position.x = 2
+pointLight.position.y = 3
+pointLight.position.z = 4
+scene.add(pointLight)
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
 directionalLight.position.x = 5
@@ -36,19 +42,39 @@ scene.add(directionalLight)
 // ------------------------
 
 // Planets
+const neptune = new Planet('/models/earth/Planets.glb', 1, 10.3, 6)
+scene.add(neptune.group)
 
-const jupiter = new Planet('/models/earth/gITF-Binary/Earth.glb', 0.003, 0)
+const uranus = new Planet('/models/earth/Planets.glb', 1, 8, 0)
+scene.add(uranus.group)
+
+const saturne = new Planet('/models/earth/Planets.glb', 1, 5.3, 1)
+scene.add(saturne.group)
+
+const jupiter = new Planet('/models/earth/Planets.glb', 1.2, 2, 3)
 scene.add(jupiter.group)
 
-const saturne = new Planet('/models/neptune/scene.gltf', 0.1, -3)
-scene.add(saturne.group)
+const mars = new Planet('/models/earth/Planets.glb', 1, -0.7, 5)
+scene.add(mars.group)
+
+const earth = new Planet('/models/earth/Planets.glb', 1, -3, 2)
+scene.add(earth.group)
+
+const venus = new Planet('/models/earth/Planets.glb', 1, -5.5, 8)
+scene.add(venus.group)
+
+const mercury = new Planet('/models/earth/Planets.glb', 1, -7.5, 7)
+scene.add(mercury.group)
+
+const sun = new Planet('/models/earth/Planets.glb', 1, -13, 4)
+scene.add(sun.group)
 
 
 // ------------------------
 // Camera
 // ------------------------
 
-const camera = new THREE.PerspectiveCamera(75,sizes.width / sizes.height,0.1,100)
+const camera = new THREE.OrthographicCamera( sizes.width / -110, sizes.width / 110, sizes.height/110,sizes.height/-110, 1, 1000)
 camera.position.z = 10
 scene.add(camera)
 
@@ -63,6 +89,7 @@ render.setPixelRatio(window.devicePixelRatio)
 
 document.body.appendChild(render.domElement)
 
+
 // ------------------------
 // Resize
 // ------------------------
@@ -74,6 +101,7 @@ window.addEventListener('resize',()=>
     render.setSize(sizes.width,sizes.height)
     camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
+    console.log ('resize')
 })
 
 // ------------------------

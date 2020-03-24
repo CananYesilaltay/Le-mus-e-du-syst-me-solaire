@@ -6,13 +6,13 @@ console.log(GLTFLoader)
 
 export default class Planet
 {
-    constructor(modelSource, planetScale, planetPosition)
+    constructor(modelSource, planetScale, planetPosition, planetNumber)
     {
         this.modelSource = modelSource
         this.planetScale = planetScale
         this.planetPosition = planetPosition
+        this.planetNumber = planetNumber
 
-        console.log('Planet constructor')
         this.group = new THREE.Group()
 
         const dracoLoader = new DRACOLoader()
@@ -25,8 +25,8 @@ export default class Planet
             modelSource,
             (_gltf) =>
             {
-                this.planet = _gltf.scene.children[0]
-                console.log(this.planet)
+                this.scene = _gltf.scene
+                this.planet = this.scene.children[ this.planetNumber]
                 this.planet.scale.set(planetScale, planetScale, planetScale)
                 this.planet.position.set(this.planetPosition, 0, 0)
                 this.group.add(this.planet)
