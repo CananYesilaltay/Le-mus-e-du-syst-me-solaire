@@ -1,24 +1,34 @@
 import './style/main.styl'
 import * as THREE from 'three'
 
-/*
-    Sizes
- */
+// ------------------------
+// Sizes
+// ------------------------
 
 const sizes  = {}
 sizes.width = window.innerWidth
 sizes.height = window.innerHeight
 
-/*
-    SCENE
- */
 
+// ------------------------
+// Scene
+// ------------------------
 
 const scene = new THREE.Scene()
 
-/*
-    Object
- */
+// Lights
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.2)
+scene.add(ambientLight)
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+directionalLight.position.x = 5
+directionalLight.position.y = 5
+directionalLight.position.z = 5
+scene.add(directionalLight)
+
+// ------------------------
+// Objects
+// ------------------------
 
 const dummy = new THREE.Mesh(
     new THREE.SphereGeometry(1),
@@ -28,18 +38,18 @@ const dummy = new THREE.Mesh(
 scene.add(dummy)
 
 
-/*
-    Camera
- */
+// ------------------------
+// Camera
+// ------------------------
 
 const camera = new THREE.PerspectiveCamera(75,sizes.width / sizes.height,0.1,100)
 camera.position.z = 10
 scene.add(camera)
 
 
-/*
-    RENDERER
- */
+// ------------------------
+// Renderer
+// ------------------------
 
 const render = new THREE.WebGLRenderer()
 render.setSize(sizes.width,sizes.height)
@@ -47,9 +57,9 @@ render.setPixelRatio(window.devicePixelRatio)
 
 document.body.appendChild(render.domElement)
 
-/*
-    RESIZE
- */
+// ------------------------
+// Resize
+// ------------------------
 
 window.addEventListener('resize',()=>
 {
@@ -60,9 +70,9 @@ window.addEventListener('resize',()=>
     camera.updateProjectionMatrix()
 })
 
-/*
-    Cursor
- */
+// ------------------------
+// Cursor
+// ------------------------
 
 const cursor = {}
 cursor.x = 0
@@ -74,19 +84,19 @@ window.addEventListener('mousemove',(_event) =>
         cursor.y = (_event.clientY / sizes.height) - 0.5
     })
 
-window.addEventListener('scroll',(_event) =>
+
+// ------------------------
+// Loop
+// ------------------------
+
+const loop = () =>
 {
-    console.log(_event)
-})
+    requestAnimationFrame(loop)
 
-
-
-const animate = () =>
-{
-    requestAnimationFrame(animate)
+    camera.lookAt(scene.position)
 
     render.render(scene, camera)
 
 }
 
-animate()
+loop()

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {"webpack": "^4.41.5"},
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@babel/preset-env": "^7.8.6",
@@ -19,7 +19,6 @@
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "three": "^0.114.0",
-    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.3"
   },
