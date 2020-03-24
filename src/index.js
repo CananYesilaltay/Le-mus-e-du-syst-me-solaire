@@ -1,7 +1,9 @@
 import './style/main.styl'
 import * as THREE from 'three'
-import Planet from './javascript/Exemple-planet-glb.js'
+// import Planet from './javascript/Exemple-planet-glb.js'
 // import Planet from './javascript/Exemple-planet-gltf.js'
+// import PlanetGLB from './javascript/Planet-glb.js'
+import Planet from './javascript/Planet.js'
 
 // ------------------------
 // Sizes
@@ -33,9 +35,13 @@ scene.add(directionalLight)
 // Objects
 // ------------------------
 
-// Planet
-const planet = new Planet()
-scene.add(planet.group)
+// Planets
+
+const jupiter = new Planet('/models/earth/gITF-Binary/Earth.glb', 0.003, 0)
+scene.add(jupiter.group)
+
+const saturne = new Planet('/models/neptune/scene.gltf', 0.1, -3)
+scene.add(saturne.group)
 
 
 // ------------------------
