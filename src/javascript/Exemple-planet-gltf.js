@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
 console.log(GLTFLoader)
 
@@ -10,7 +11,11 @@ export default class Planet
         console.log('Planet constructor')
         this.group = new THREE.Group()
 
+        const dracoLoader = new DRACOLoader()
+        dracoLoader.setDecoderPath('/draco/')
+
         const gltfLoader = new GLTFLoader()
+        gltfLoader.setDRACOLoader(dracoLoader)
 
         gltfLoader.load(
             '/models/neptune/scene.gltf',
