@@ -1,6 +1,6 @@
 import './style/main.styl'
 import * as THREE from 'three'
-import Duck from './javascript/Exemple.js'
+import Planet from './javascript/Exemple-planet-glb.js'
 
 // ------------------------
 // Sizes
@@ -32,9 +32,9 @@ scene.add(directionalLight)
 // Objects
 // ------------------------
 
-// Duck
-const duck = new Duck()
-scene.add(duck.group)
+// Planet
+const planet = new Planet()
+scene.add(planet.group)
 
 
 // ------------------------
