@@ -1,6 +1,7 @@
 import './style/main.styl'
 import * as THREE from 'three'
-import Planet from './javascript/Exemple-planet-glb.js'
+// import Planet from './javascript/Exemple-planet-glb.js'
+import Planet from './javascript/Exemple-planet-gltf.js'
 
 // ------------------------
 // Sizes
@@ -18,7 +19,7 @@ sizes.height = window.innerHeight
 const scene = new THREE.Scene()
 
 // Lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.2)
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)
 scene.add(ambientLight)
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
