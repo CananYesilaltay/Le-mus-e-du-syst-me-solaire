@@ -23,7 +23,7 @@ console.log(sizes.height)
 const scene = new THREE.Scene()
 
 // Lights
-const ambientLight = new THREE.AmbientLight(0xffffff,1.2)
+const ambientLight = new THREE.AmbientLight(0xffffff,1)
 scene.add(ambientLight)
 
 const pointLight = new THREE.PointLight(0xff9000, 1, 10)
@@ -47,42 +47,44 @@ const venusSource = '/models/planets/venus.glb'
 const mercurySource = '/models/planets/mercury.glb'
 const sunSource = '/models/planets/sun.glb'
 
-const astronauteSource = '/models/astronautes/austronaute.glb'
+const astronauteSource = '/models/astronautes/astronaute.glb'
 
 // Planets
-const astronaute = new Planet(astronauteSource, 1, 0)
-scene.add(astronaute.group)
 
-const neptune = new Planet(neptuneSource, 0.9, 10)
+const astronaute = new Planet(astronauteSource, 0.03, 12, 2)
+scene.add(astronaute.group)
+console.log(astronaute)
+
+const neptune = new Planet(neptuneSource, 0.9, 11, 0)
 scene.add(neptune.group)
 
-const uranus = new Planet(uranusSource, 2, 7.6)
+const uranus = new Planet(uranusSource, 2, 8.3, 0)
 scene.add(uranus.group)
 
-const saturne = new Planet(saturnSource, 1, 5.3)
+const saturne = new Planet(saturnSource, 1, 5.5, 0)
 scene.add(saturne.group)
 
-const jupiter = new Planet(jupiterSource, 1.2, 2)
+const jupiter = new Planet(jupiterSource, 1.2, 2, 0)
 scene.add(jupiter.group)
 
-const mars = new Planet(marsSource, 1, -0.7)
+const mars = new Planet(marsSource, 1, -0.7, 0)
 scene.add(mars.group)
 
-const earth = new Planet(earthSource, 1, -3)
+const earth = new Planet(earthSource, 1, -3, 0)
 scene.add(earth.group)
 
-const venus = new Planet(venusSource, 1, -5.5)
+const venus = new Planet(venusSource, 1, -5.5, 0)
 scene.add(venus.group)
 
-const mercury = new Planet(mercurySource, 1, -7.5)
+const mercury = new Planet(mercurySource, 1, -7.5, 0)
 scene.add(mercury.group)
 
-const sun = new Planet(sunSource, 1, -13)
+const sun = new Planet(sunSource, 1, -14, 0)
 scene.add(sun.group)
 
 // Skybox
 
-const cubeSize = new THREE.BoxGeometry(sizes.width/15, sizes.height/15, sizes.width/15)
+const cubeSize = new THREE.BoxGeometry(sizes.width, sizes.height, sizes.height/2)
 const skyBoxTexture = textureLoader.load(skyBoxSource)
 const cubeMaterials = [
     new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide}),
@@ -93,8 +95,6 @@ const cubeMaterials = [
     new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide})
     ]
 let cube = new THREE.Mesh(cubeSize, cubeMaterials)
-
-
 scene.add(cube)
 
 // ------------------------
@@ -102,9 +102,11 @@ scene.add(cube)
 // ------------------------
 
 
-const camera = new THREE.OrthographicCamera( sizes.width / -100, sizes.width / 100, sizes.height/100,sizes.height/-100, 1, 4096)
-camera.position.z = 10
+const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 1 , 1000)
+camera.position.z = 17
+camera.position.x = 0.33
 scene.add(camera)
+
 
 
 // ------------------------
