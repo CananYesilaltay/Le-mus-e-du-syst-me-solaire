@@ -1,8 +1,5 @@
 import './style/main.styl'
 import * as THREE from 'three'
-// import Planet from './javascript/Exemple-planet-glb.js'
-// import Planet from './javascript/Exemple-planet-gltf.js'
-// import PlanetGLB from './javascript/Planet-glb.js'
 import Planet from './javascript/Planet.js'
 
 // ------------------------

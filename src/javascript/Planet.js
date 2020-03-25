@@ -30,6 +30,7 @@ export default class Planet
                 this.planet.scale.set(planetScale, planetScale, planetScale)
                 this.planet.position.set(this.planetPosition, 0, 0)
                 this.group.add(this.planet)
+                console.log(this.scene)
             }
         )
     }
