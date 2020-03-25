@@ -38,32 +38,42 @@ scene.add(directionalLight)
 // Objects
 // ------------------------
 
+const neptuneSource = '/models/planets/neptune.glb'
+// const uranusSource = '/models/planets/uranus.glb'
+const saturnSource = '/models/planets/saturn.glb'
+const jupiterSource = '/models/planets/jupiter.glb'
+const marsSource = '/models/planets/mars.glb'
+const earthSource = '/models/planets/earth.glb'
+const venusSource = '/models/planets/venus.glb'
+const mercurySource = '/models/planets/mercury.glb'
+const sunSource = '/models/planets/sun.glb'
+
 // Planets
-const neptune = new Planet('/models/earth/Planets.glb', 1, 10.3, 6)
+const neptune = new Planet(neptuneSource, 1, 8)
 scene.add(neptune.group)
 
-const uranus = new Planet('/models/earth/Planets.glb', 1, 8, 0)
-scene.add(uranus.group)
+// const uranus = new Planet(uranusSource, 1, 8)
+// scene.add(uranus.group)
 
-const saturne = new Planet('/models/earth/Planets.glb', 1, 5.3, 1)
+const saturne = new Planet(saturnSource, 1, 5.3)
 scene.add(saturne.group)
 
-const jupiter = new Planet('/models/earth/Planets.glb', 1.2, 2, 3)
+const jupiter = new Planet(jupiterSource, 1.2, 2)
 scene.add(jupiter.group)
 
-const mars = new Planet('/models/earth/Planets.glb', 1, -0.7, 5)
+const mars = new Planet(marsSource, 1, -0.7)
 scene.add(mars.group)
 
-const earth = new Planet('/models/earth/Planets.glb', 1, -3, 2)
+const earth = new Planet(earthSource, 1, -3)
 scene.add(earth.group)
 
-const venus = new Planet('/models/earth/Planets.glb', 1, -5.5, 8)
+const venus = new Planet(venusSource, 1, -5.5)
 scene.add(venus.group)
 
-const mercury = new Planet('/models/earth/Planets.glb', 1, -7.5, 7)
+const mercury = new Planet(mercurySource, 1, -7.5)
 scene.add(mercury.group)
 
-const sun = new Planet('/models/earth/Planets.glb', 1, -13, 4)
+const sun = new Planet(sunSource, 1, -13)
 scene.add(sun.group)
 
 
