@@ -12,6 +12,8 @@ const textureLoader = new THREE.TextureLoader()
 const sizes  = {}
 sizes.width = window.innerWidth
 sizes.height = window.innerHeight
+console.log(sizes.width)
+console.log(sizes.height)
 
 
 // ------------------------
@@ -21,7 +23,7 @@ sizes.height = window.innerHeight
 const scene = new THREE.Scene()
 
 // Lights
-const ambientLight = new THREE.AmbientLight(0xffffff,1)
+const ambientLight = new THREE.AmbientLight(0xffffff,1.2)
 scene.add(ambientLight)
 
 const pointLight = new THREE.PointLight(0xff9000, 1, 10)
@@ -29,12 +31,6 @@ pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
-
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
-directionalLight.position.x = 5
-directionalLight.position.y = 5
-directionalLight.position.z = 5
-scene.add(directionalLight)
 
 
 // ------------------------
@@ -57,7 +53,7 @@ const astronauteSource = '/models/astronautes/austronaute.glb'
 const astronaute = new Planet(astronauteSource, 1, 0)
 scene.add(astronaute.group)
 
-const neptune = new Planet(neptuneSource, 0.9, 16)
+const neptune = new Planet(neptuneSource, 0.9, 10)
 scene.add(neptune.group)
 
 const uranus = new Planet(uranusSource, 2, 7.6)
@@ -86,7 +82,7 @@ scene.add(sun.group)
 
 // Skybox
 
-const cubeSize = new THREE.BoxGeometry(8192, 8192, 4096)
+const cubeSize = new THREE.BoxGeometry(sizes.width/10, sizes.height/10, sizes.width/10)
 const skyBoxTexture = textureLoader.load(skyBoxSource)
 const cubeMaterials = [
     new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide}),
@@ -106,16 +102,10 @@ scene.add(cube)
 // ------------------------
 
 
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth/ window.innerHeight, 1,4096 );
-
-
-camera.position.z = 10;
-
-/*
-const camera = new THREE.OrthographicCamera( sizes.width / -110, sizes.width / 110, sizes.height/110,sizes.height/-110, 1, 1000)
+const camera = new THREE.OrthographicCamera( sizes.width / -100, sizes.width / 100, sizes.height/100,sizes.height/-100, 1, 4096)
 camera.position.z = 10
 scene.add(camera)
-*/
+
 
 // ------------------------
 // Renderer
