@@ -4,7 +4,6 @@ import Planet from './javascript/Planet.js'
 import skyBoxSource from './images/skybox.jpg'
 const textureLoader = new THREE.TextureLoader()
 
-
 // ------------------------
 // Sizes
 // ------------------------
@@ -36,6 +35,9 @@ scene.add(pointLight)
 // ------------------------
 // Objects
 // ------------------------
+
+const axesHelper = new THREE.AxesHelper( 5 )
+scene.add( axesHelper )
 
 const neptuneSource = '/models/planets/neptune.glb'
 const uranusSource = '/models/planets/uranus.glb'
@@ -102,11 +104,33 @@ scene.add(cube)
 // ------------------------
 
 
-const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 1 , 1000)
-camera.position.z = 17
-camera.position.x = 0.33
+const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.5 , 1000)
+camera.position.z = 14
+camera.lookAt(new THREE.Vector3(0,0,0));
+
+const xAxis = new THREE.Vector3(
+    camera.matrixWorld.elements[0], 
+    camera.matrixWorld.elements[1], 
+    camera.matrixWorld.elements[2],)
+const yAxis = new THREE.Vector3(
+    camera.matrixWorld.elements[4], 
+    camera.matrixWorld.elements[5], 
+    camera.matrixWorld.elements[6],)
+// camera.translateOnAxis(xAxis, 11.5)
+// camera.translateOnAxis(yAxis, 0.3)
+// camera.translateX(5.5)
+// camera.lookAt(new THREE.Vector3(5.5, 0, 0))
 scene.add(camera)
 
+// const helper = new THREE.CameraHelper( camera )
+// scene.add( helper )
+
+console.log(camera.matrixWorld.elements[0])
+console.log(camera.matrixWorld.elements[1])
+console.log(camera.matrixWorld.elements[2])
+console.log(camera.matrixWorld.elements[4])
+console.log(camera.matrixWorld.elements[5])
+console.log(camera.matrixWorld.elements[6])
 
 
 // ------------------------
@@ -156,8 +180,6 @@ window.addEventListener('mousemove',(_event) =>
 const loop = () =>
 {
     requestAnimationFrame(loop)
-
-    camera.lookAt(scene.position)
 
     render.render(scene, camera)
 
