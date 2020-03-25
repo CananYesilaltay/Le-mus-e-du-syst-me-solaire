@@ -39,7 +39,7 @@ scene.add(directionalLight)
 // ------------------------
 
 const neptuneSource = '/models/planets/neptune.glb'
-// const uranusSource = '/models/planets/uranus.glb'
+const uranusSource = '/models/planets/uranus.glb'
 const saturnSource = '/models/planets/saturn.glb'
 const jupiterSource = '/models/planets/jupiter.glb'
 const marsSource = '/models/planets/mars.glb'
@@ -48,12 +48,17 @@ const venusSource = '/models/planets/venus.glb'
 const mercurySource = '/models/planets/mercury.glb'
 const sunSource = '/models/planets/sun.glb'
 
+const astronauteSource = '/models/astronautes/austronaute.glb'
+
 // Planets
-const neptune = new Planet(neptuneSource, 1, 8)
+const astronaute = new Planet(astronauteSource, 1, 0)
+scene.add(astronaute.group)
+
+const neptune = new Planet(neptuneSource, 0.9, 16)
 scene.add(neptune.group)
 
-// const uranus = new Planet(uranusSource, 1, 8)
-// scene.add(uranus.group)
+const uranus = new Planet(uranusSource, 2, 7.6)
+scene.add(uranus.group)
 
 const saturne = new Planet(saturnSource, 1, 5.3)
 scene.add(saturne.group)
@@ -81,7 +86,7 @@ scene.add(sun.group)
 // Camera
 // ------------------------
 
-const camera = new THREE.OrthographicCamera( sizes.width / -110, sizes.width / 110, sizes.height/110,sizes.height/-110, 1, 1000)
+const camera = new THREE.OrthographicCamera( sizes.width / -2, sizes.width / 2, sizes.height/2,sizes.height/-2, 1, 1000)
 camera.position.z = 10
 scene.add(camera)
 
