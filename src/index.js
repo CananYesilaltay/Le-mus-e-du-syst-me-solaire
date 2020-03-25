@@ -1,6 +1,9 @@
 import './style/main.styl'
 import * as THREE from 'three'
 import Planet from './javascript/Planet.js'
+import skyBoxSource from './images/skybox.jpg'
+const textureLoader = new THREE.TextureLoader()
+
 
 // ------------------------
 // Sizes
@@ -76,15 +79,38 @@ scene.add(mercury.group)
 const sun = new Planet(sunSource, 1, -13)
 scene.add(sun.group)
 
+// Skybox
+
+const cubeSize = new THREE.BoxGeometry(8192, 8192, 4096)
+const skyBoxTexture = textureLoader.load(skyBoxSource)
+const cubeMaterials = [
+    new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide}),
+    new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide}),
+    new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide}),
+    new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide}),
+    new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide}),
+    new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide})
+    ]
+let cube = new THREE.Mesh(cubeSize, cubeMaterials)
+
+
+scene.add(cube)
 
 // ------------------------
 // Camera
 // ------------------------
 
+
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth/ window.innerHeight, 1,4096 );
+
+
+camera.position.z = 10;
+
+/*
 const camera = new THREE.OrthographicCamera( sizes.width / -110, sizes.width / 110, sizes.height/110,sizes.height/-110, 1, 1000)
 camera.position.z = 10
 scene.add(camera)
-
+*/
 
 // ------------------------
 // Renderer
