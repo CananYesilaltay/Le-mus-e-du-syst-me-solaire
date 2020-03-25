@@ -82,7 +82,7 @@ scene.add(sun.group)
 
 // Skybox
 
-const cubeSize = new THREE.BoxGeometry(sizes.width/10, sizes.height/10, sizes.width/10)
+const cubeSize = new THREE.BoxGeometry(sizes.width/15, sizes.height/15, sizes.width/15)
 const skyBoxTexture = textureLoader.load(skyBoxSource)
 const cubeMaterials = [
     new THREE.MeshBasicMaterial({ map: skyBoxTexture, side: THREE.DoubleSide}),
