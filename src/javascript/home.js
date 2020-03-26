@@ -1,4 +1,4 @@
-import './style/main.styl'
+import './style/home.styl'
 import imageSource from './images/astro-rocket.svg'
 
 
