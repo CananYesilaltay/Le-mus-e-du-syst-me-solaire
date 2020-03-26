@@ -3,7 +3,6 @@ import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
-// import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js'
 import Planet from './javascript/Planet.js'
 // import Fiche from './javascript/Fiche.js'
 import skyBoxSource from './images/skybox.jpg'
@@ -52,7 +51,7 @@ const sunSource = '/models/planets/sun.glb'
 const astronauteSource = '/models/astronautes/astronaute.glb'
 
     // Astronaute
-const astronaute = new Planet(astronauteSource, 0.03, 0, 2)
+const astronaute = new Planet(astronauteSource, 0.03, -4.9, 0.75)
 scene.add(astronaute.group)
 console.log(astronaute)
 
@@ -204,6 +203,8 @@ const moveCamera = (cameraMoveX,cameraMoveZ) => {
     )
 }
 
+
+
 document.addEventListener('click', () =>
 {
     if(hoverNeptune)
@@ -276,6 +277,7 @@ let hoverVenus = false
 let hoverMercury = false
 let hoverSun = false
 
+
     // Loop
 const loop = () =>
 {
@@ -296,14 +298,14 @@ const loop = () =>
     const intersectSun = raycaster.intersectObject(sun.group, true)
 
     // Detect Hover on planets
-    if(intersectNeptune.length){ hoverNeptune = true }
-    else if(intersectUranus.length){ hoverUranus = true }
-    else if(intersectSaturn.length){ hoverSaturn = true }
-    else if(intersectJupiter.length){ hoverJupiter = true }
-    else if(intersectMars.length){ hoverMars = true }
-    else if(intersectEarth.length){ hoverEarth = true }
-    else if(intersectVenus.length){ hoverVenus = true }
-    else if(intersectMercury.length){ hoverMercury = true }
+    if(intersectNeptune.length){ hoverNeptune = true, astronaute.group.position.x = neptune.planetPositionX - 7.95 }
+    else if(intersectUranus.length){ hoverUranus = true, astronaute.group.position.x = uranus.planetPositionX - 7.05 }
+    else if(intersectSaturn.length){ hoverSaturn = true, astronaute.group.position.x = saturn.planetPositionX - 6.05 }
+    else if(intersectJupiter.length){ hoverJupiter = true, astronaute.group.position.x = jupiter.planetPositionX - 5 }
+    else if(intersectMars.length){ hoverMars = true, astronaute.group.position.x = mars.planetPositionX - 4.1 }
+    else if(intersectEarth.length){ hoverEarth = true, astronaute.group.position.x = earth.planetPositionX - 3.45 }
+    else if(intersectVenus.length){ hoverVenus = true, astronaute.group.position.x = venus.planetPositionX - 2.7 }
+    else if(intersectMercury.length){ hoverMercury = true, astronaute.group.position.x = mercury.planetPositionX - 2.15 }
     else if(intersectSun.length){ hoverSun = true }
     else{
         hoverNeptune = false
@@ -317,6 +319,17 @@ const loop = () =>
         hoverSun = false
     }
 
+    //rotation
+    jupiter.group.rotation.y += 0.001 
+    //jupiter.group.rotation.x = -0.5
+    neptune.group.rotation.y += 0.001
+    uranus.group.rotation.y += 0.001
+    saturn.group.rotation.y += 0.001
+    mars.group.rotation.y += 0.001
+    earth.group.rotation.y += 0.001
+    venus.group.rotation.y += 0.001
+    mercury.group.rotation.y += 0.001
+    sun.group.rotation.y += 0.0002
 
     // RENDER
     effectComposer.render(scene, camera)

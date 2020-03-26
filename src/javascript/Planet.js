@@ -28,7 +28,7 @@ export default class Planet
                 this.scene = _gltf.scene
                 this.planet = this.scene.children[0]
                 this.planet.scale.set(planetScale, planetScale, planetScale)
-                this.planet.position.set(this.planetPositionX, this.planetPositionY, 0)
+                this.group.position.set(this.planetPositionX, this.planetPositionY, 0)
                 this.group.add(this.planet)
             }
         )
