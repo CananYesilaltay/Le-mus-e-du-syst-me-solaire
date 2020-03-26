@@ -51,7 +51,7 @@ const sunSource = '/models/planets/sun.glb'
 const astronauteSource = '/models/astronautes/astronaute.glb'
 
     // Astronaute
-const astronaute = new Planet(astronauteSource, 0.03, 1.35, 1.5)
+const astronaute = new Planet(astronauteSource, 0.03, -4.9, 0.75)
 scene.add(astronaute.group)
 console.log(astronaute)
 
@@ -329,14 +329,14 @@ const loop = () =>
     const intersectSun = raycaster.intersectObject(sun.group, true)
 
     // Detect Hover on planets
-    if(intersectNeptune.length){ hoverNeptune = true }
-    else if(intersectUranus.length){ hoverUranus = true }
-    else if(intersectSaturn.length){ hoverSaturn = true }
-    else if(intersectJupiter.length){ hoverJupiter = true }
-    else if(intersectMars.length){ hoverMars = true }
-    else if(intersectEarth.length){ hoverEarth = true }
-    else if(intersectVenus.length){ hoverVenus = true }
-    else if(intersectMercury.length){ hoverMercury = true }
+    if(intersectNeptune.length){ hoverNeptune = true, astronaute.group.position.x = neptune.planetPositionX - 7.95 }
+    else if(intersectUranus.length){ hoverUranus = true, astronaute.group.position.x = uranus.planetPositionX - 7.05 }
+    else if(intersectSaturn.length){ hoverSaturn = true, astronaute.group.position.x = saturn.planetPositionX - 6.05 }
+    else if(intersectJupiter.length){ hoverJupiter = true, astronaute.group.position.x = jupiter.planetPositionX - 5 }
+    else if(intersectMars.length){ hoverMars = true, astronaute.group.position.x = mars.planetPositionX - 4.1 }
+    else if(intersectEarth.length){ hoverEarth = true, astronaute.group.position.x = earth.planetPositionX - 3.45 }
+    else if(intersectVenus.length){ hoverVenus = true, astronaute.group.position.x = venus.planetPositionX - 2.7 }
+    else if(intersectMercury.length){ hoverMercury = true, astronaute.group.position.x = mercury.planetPositionX - 2.15 }
     else if(intersectSun.length){ hoverSun = true }
     else{
         hoverNeptune = false
@@ -351,9 +351,17 @@ const loop = () =>
     }
 
     //rotation
-    jupiter.group.rotation.y += 0.01 
-    jupiter.group.rotation.z = 0.5
-   
+    jupiter.group.rotation.y += 0.001 
+    //jupiter.group.rotation.x = -0.5
+    neptune.group.rotation.y += 0.001
+    uranus.group.rotation.y += 0.001
+    saturn.group.rotation.y += 0.001
+    mars.group.rotation.y += 0.001
+    earth.group.rotation.y += 0.001
+    venus.group.rotation.y += 0.001
+    mercury.group.rotation.y += 0.001
+    sun.group.rotation.y += 0.0002
+
     // RENDER
     effectComposer.render(scene, camera)
     labelRenderer.render( scene, cameraCSS2 );
