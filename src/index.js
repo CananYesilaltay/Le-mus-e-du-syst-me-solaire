@@ -50,7 +50,7 @@ const sunSource = '/models/planets/sun.glb'
 const astronauteSource = '/models/astronautes/astronaute.glb'
 
     // Astronaute
-const astronaute = new Planet(astronauteSource, 0.03, 1.35, 2)
+const astronaute = new Planet(astronauteSource, 0.03, 1.35, 1.5)
 scene.add(astronaute.group)
 console.log(astronaute)
 
@@ -245,6 +245,7 @@ let hoverVenus = false
 let hoverMercury = false
 let hoverSun = false
 
+
     // Loop
 const loop = () =>
 {
@@ -286,6 +287,10 @@ const loop = () =>
         hoverSun = false
     }
 
+    //rotation
+    jupiter.group.rotation.y += 0.01 
+    jupiter.group.rotation.z = 0.5
+   
     // RENDER
     effectComposer.render(scene, camera)
 
