@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js'
 import Planet from './javascript/Planet.js'
 import skyBoxSource from './images/skybox.jpg'
 import { TweenLite } from 'gsap/all'
@@ -82,6 +83,61 @@ scene.add(mercury.group)
 const sun = new Planet(sunSource, 1, -14, 0)
 scene.add(sun.group)
 
+    // Infos
+    const createInfoSlide = (planetName, planetSubtitle, planetOrigins) =>
+    {
+        // Fiche container
+        const infoContainer = document.createElement('div')
+        infoContainer.classList.add('container')
+
+        // Title
+        const ficheName = document.createElement('div')
+        ficheName.classList.add('ficheName')
+        infoContainer.appendChild(ficheName)
+        const nameTitle = document.createElement ('h1')
+        nameTitle.textContent = planetName
+        ficheName.appendChild(nameTitle)
+        const nameSubtitle = document.createElement ('p')
+        nameSubtitle.classList.add('subtitle')
+        nameSubtitle.textContent = planetSubtitle
+        ficheName.appendChild(nameSubtitle)
+
+        // Origins
+        const ficheOrigins = document.createElement('div')
+        ficheOrigins.classList.add('origins')
+        infoContainer.appendChild(ficheOrigins)
+        const originsTitle = document.createElement('h4')
+        originsTitle.textContent = "D'où vient son nom ?"
+        ficheOrigins.appendChild(originsTitle)
+        const originsText = document.createElement('p')
+        originsText.textContent = planetOrigins
+        ficheOrigins.appendChild(originsText)
+
+        // General container
+        const generalInfosContainer = document.createElement('div')
+        generalInfosContainer.classList.add('general-info-container')
+        infoContainer.appendChild(generalInfosContainer)
+            // Infos
+        // const icon = document.createElement('img')
+        // originsTitle.textContent = "D'où vient son nom ?"
+        // ficheOrigins.appendChild(originsTitle)
+        // const originsText = document.createElement('p')
+        // originsText.textContent = planetOrigins
+        // ficheOrigins.appendChild(originsText)
+        
+
+        // Fiche title
+        const info = new CSS2DObject( infoContainer );
+        info.position.set( 0.4, 0 , 0 )
+        scene.add(info)
+    }
+    createInfoSlide(
+        'Mercure',
+        'Le messager des dieux',
+        'De Mercure, le dieu romain des valeurs, des marchands et des messager'
+        )
+
+
 
 // ------------------------
 // Skybox
@@ -110,24 +166,31 @@ const raycaster = new THREE.Raycaster()
 const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.5 , 1000)
 camera.position.z = 15
 camera.lookAt(new THREE.Vector3(0,0,0))
-const xAxis = new THREE.Vector3(
-    camera.matrixWorld.elements[0], 
-    camera.matrixWorld.elements[1], 
-    camera.matrixWorld.elements[2])
 
+const xAxis = new THREE.Vector3(1,0,0)
 camera.translateOnAxis(xAxis, -0.5)
 scene.add(camera)
 
+const cameraCSS2 = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.5 , 1000)
+cameraCSS2.position.z = 1
+scene.add(cameraCSS2)
 
 // ------------------------
 // Renderer
 // ------------------------
 
+    // Renderer
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(sizes.width,sizes.height)
 renderer.setPixelRatio(window.devicePixelRatio)
-
 document.body.appendChild(renderer.domElement)
+
+    // Label renderer
+const labelRenderer = new CSS2DRenderer()
+labelRenderer.setSize(sizes.width,sizes.height)
+labelRenderer.domElement.style.position = 'fixed';
+labelRenderer.domElement.style.top = 0;
+document.body.appendChild( labelRenderer.domElement )
 
     //effectComposer
 const effectComposer = new EffectComposer(renderer)
@@ -288,7 +351,7 @@ const loop = () =>
 
     // RENDER
     effectComposer.render(scene, camera)
-
+    labelRenderer.render( scene, cameraCSS2 );
 }
 
 loop()
