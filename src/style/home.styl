@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:400,700&display=swap')
+
 body
     background #dddddd
     font-family: 'Rajdhani', sans-serif
@@ -13,44 +15,48 @@ body
     border-radius 1vw
     z-index 1000
 
-.pop-up-background .pop-up-container h1
-    position absolute
-    margin 5vh 21vw 0 21vw
-    font-size 8vw
-    animation-name title-animation
-    animation-duration 6s
-    animation-iteration-count infinite
+        .pop-up-container 
+            width 100%
+            height 100%
 
-.pop-up-background .pop-up-container img
-    width 30vw
-    height 30vw
-    margin -28vh 0 0 3vw
-    animation-name img-animation
-    animation-duration 4s
-    animation-iteration-count infinite
-    animation-timing-function ease-in-out
+            h1
+                position absolute
+                margin 5vh 21vw 0 21vw
+                font-size 8vw
+                animation-name title-animation
+                animation-duration 6s
+                animation-iteration-count infinite
 
-.pop-up-background .pop-up-container p 
-    font-size 1.5vw
-    width 25vw
-    margin 30vh 0 0 35vw
+            img
+                width 30vw
+                height 30vw
+                margin -28vh 0 0 3vw
+                animation-name img-animation
+                animation-duration 4s
+                animation-iteration-count infinite
+                animation-timing-function ease-in-out
 
-.pop-up-background .pop-up-container .pop-up-button
-    position absolute
-    width 16.5vw
-    height 3vw
-    margin-top -20vh
-    margin-left 35vw  
-    border-radius 10vh
-    border 0.3vh solid #ffffff
+            p 
+                font-size 1.5vw
+                width 25vw
+                margin 30vh 0 0 35vw
 
-.pop-up-background .pop-up-container .pop-up-button:hover
-    background-color #ffffff40
-    cursor pointer
+        .pop-up-button
+            position absolute
+            width 16.5vw
+            height 3vw
+            margin-top -20vh
+            margin-left 35vw  
+            border-radius 10vh
+            border 0.3vh solid #ffffff
 
-.pop-up-background .pop-up-container .pop-up-button .pop-up-button-content
-    font-size 2vw
-    margin 0.7vh 4.5vw 
+        .pop-up-button:hover
+            background-color #ffffff40
+            cursor pointer
+
+            .pop-up-button-content
+                font-size 2vw
+                margin 0.7vh 4.5vw 
 
 .hidden-item
 {
