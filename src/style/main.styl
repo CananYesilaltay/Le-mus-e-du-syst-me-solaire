@@ -1,42 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:400,700&display=swap')
+
 *
   padding: 0
   margin: 0;
 
 
-  body
-  html
-    position fixed
-    overflow hidden
-    left 0
-    top 0
-    width 100%
-    height 100%
-    font-family 'Rajdhani' sans-serif
-    color white
+body
+html
+  position fixed
+  overflow hidden
+  left 0
+  top 0
+  width 100%
+  height 100%
+  font-family 'Rajdhani', sans-serif
+  color white
 
-  .container
-    height 500px
-    width 350px
-    background #00023E
-    
-    .ficheName
-    position absolute
+.test 
+  position absolute
+  width 100px
+  height 100px
+  background red
+  z-index 1000
 
-      h1
-        font-size 58px
-        font-family 'Rajdhani' sans-serif
+.container
+  height 500px
+  width 380px
+  background rgba(0, 2, 62, 0.7)
+  padding 40px
+  position absolute
+  top 10vh
+  left 60vw
+  .ficheName
+    margin-bottom 16px
+    h1
+      font-size 46px
+      font-family 'Rajdhani' sans-serif
+      font-weight bold
 
-      .subtitles
-          color #97979F
-          font-weight bold
-          font-size 20px
+    .subtitle
+        color #97979F
+        font-weight bold
+        font-size 17px
 
-    .origins
-      position absolute
-
-      h4
-        font-size 20px
-
+  .origins
+    padding 10px
+    width 300px
+    h4
+      font-size 20px
+      font-weight bold
+    p
+      font-size 15px
+  
+  .general-info-container
+    margin 0px 20px 20px 20px
+    width 400px
+    height 320px
+    display flex
+    flex-wrap wrap
+    .general-info
+      width 200px
+      display flex
+      align-items center
+      .icons
+        width 40px
+        height 40px
+        padding 10px
+        border-radius 50%
+        background #97979F
       p
         font-size 15px
+        padding-left 10px
+        width 80px
 
+.is-hidden
+  opacity 0
