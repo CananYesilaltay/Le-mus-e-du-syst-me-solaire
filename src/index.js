@@ -1,5 +1,8 @@
 import './style/main.styl'
 import * as THREE from 'three'
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import Planet from './javascript/Planet.js'
 import skyBoxSource from './images/skybox.jpg'
 import { TweenLite } from 'gsap/all'
@@ -23,7 +26,7 @@ console.log(sizes.height)
 const scene = new THREE.Scene()
 
     // Lights
-const ambientLight = new THREE.AmbientLight(0xffFFCB,1.2)
+const ambientLight = new THREE.AmbientLight(0xffFFCB,0.7)
 scene.add(ambientLight)
 
 
@@ -126,6 +129,19 @@ renderer.setPixelRatio(window.devicePixelRatio)
 
 document.body.appendChild(renderer.domElement)
 
+    //effectComposer
+const effectComposer = new EffectComposer(renderer)
+
+const renderPass = new RenderPass(scene, camera)
+effectComposer.addPass(renderPass)
+        
+        //post processing
+const unrealPass = new UnrealBloomPass
+unrealPass.strength = 0.6
+unrealPass.radius = 0.75
+unrealPass.threshold = 0.05
+effectComposer.addPass(unrealPass)
+
 
 // ------------------------
 // Resize
@@ -139,6 +155,8 @@ window.addEventListener('resize',()=>
     camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
     console.log ('resize')
+    // Update effectComposer
+    effectComposer.setSize(sizes.width, sizes.height)
 })
 
 // ------------------------
@@ -269,7 +287,7 @@ const loop = () =>
     }
 
     // RENDER
-    renderer.render(scene, camera)
+    effectComposer.render(scene, camera)
 
 }
 
