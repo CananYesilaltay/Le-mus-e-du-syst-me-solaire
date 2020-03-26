@@ -101,8 +101,6 @@ scene.add(sun.group)
 // scene.add(mercuryInfo.group)
 // console.log(mercuryInfo.group)
 
-const 
-
 
 // ------------------------
 // Skybox
