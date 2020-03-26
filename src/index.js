@@ -63,8 +63,8 @@ scene.add(neptune.group)
 const uranus = new Planet(uranusSource, 2, 8.3, 0)
 scene.add(uranus.group)
 
-const saturne = new Planet(saturnSource, 1, 5.5, 0)
-scene.add(saturne.group)
+const saturn = new Planet(saturnSource, 1, 5.5, 0)
+scene.add(saturn.group)
 
 const jupiter = new Planet(jupiterSource, 1.2, 2, 0)
 scene.add(jupiter.group)
@@ -185,10 +185,43 @@ const loop = () =>
         const raycasterCursor = new THREE.Vector2(cursor.x * 2, - cursor.y * 2)
         raycaster.setFromCamera(raycasterCursor, camera)
     
-        const intersects = raycaster.intersectObject(earth.group, true)
-        if(intersects.length)
+        const intersectNeptune = raycaster.intersectObject(neptune.group, true)
+        const intersectUranus = raycaster.intersectObject(uranus.group, true)
+        const intersectSaturn = raycaster.intersectObject(saturn.group, true)
+        const intersectJupiter = raycaster.intersectObject(jupiter.group, true)
+        const intersectMars = raycaster.intersectObject(mars.group, true)
+        const intersectEarth = raycaster.intersectObject(earth.group, true)
+        const intersectVenus = raycaster.intersectObject(venus.group, true)
+        const intersectMercury = raycaster.intersectObject(mercury.group, true)
+        const intersectSun = raycaster.intersectObject(sun.group, true)
+
+        if(intersectNeptune.length)
         {
-            console.log('hover')
+            console.log('Neptune')
+        }else if(intersectUranus.length)
+        {
+            console.log('Uranus')
+        }else if(intersectSaturn.length)
+        {
+            console.log('Saturn')
+        }else if(intersectJupiter.length)
+        {
+            console.log('Jupiter')
+        }else if(intersectMars.length)
+        {
+            console.log('Mars')
+        }else if(intersectEarth.length)
+        {
+            console.log('Earth')
+        }else if(intersectVenus.length)
+        {
+            console.log('Venus')
+        }else if(intersectMercury.length)
+        {
+            console.log('Mercury')
+        }else if(intersectSun.length)
+        {
+            console.log('Sun')
         }
 
 
