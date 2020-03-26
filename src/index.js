@@ -2,7 +2,8 @@ import './style/main.styl'
 import * as THREE from 'three'
 import Planet from './javascript/Planet.js'
 import skyBoxSource from './images/skybox.jpg'
-const textureLoader = new THREE.TextureLoader()
+import { TweenLite } from 'gsap/all'
+
 
 // ------------------------
 // Sizes
@@ -21,15 +22,9 @@ console.log(sizes.height)
 
 const scene = new THREE.Scene()
 
-// Lights
-const ambientLight = new THREE.AmbientLight(0xffffff,1)
+    // Lights
+const ambientLight = new THREE.AmbientLight(0xffFFCB,1.2)
 scene.add(ambientLight)
-
-const pointLight = new THREE.PointLight(0xff9000, 1, 10)
-pointLight.position.x = 2
-pointLight.position.y = 3
-pointLight.position.z = 4
-scene.add(pointLight)
 
 
 // ------------------------
@@ -39,6 +34,7 @@ scene.add(pointLight)
 const axesHelper = new THREE.AxesHelper( 5 )
 scene.add( axesHelper )
 
+    // Object Sources
 const neptuneSource = '/models/planets/neptune.glb'
 const uranusSource = '/models/planets/uranus.glb'
 const saturnSource = '/models/planets/saturn.glb'
@@ -48,34 +44,33 @@ const earthSource = '/models/planets/earth.glb'
 const venusSource = '/models/planets/venus.glb'
 const mercurySource = '/models/planets/mercury.glb'
 const sunSource = '/models/planets/sun.glb'
-
 const astronauteSource = '/models/astronautes/astronaute.glb'
 
-// Planets
-
-const astronaute = new Planet(astronauteSource, 0.03, 12, 2)
+    // Astronaute
+const astronaute = new Planet(astronauteSource, 0.03, 0, 2)
 scene.add(astronaute.group)
 console.log(astronaute)
 
-const neptune = new Planet(neptuneSource, 0.9, 11, 0)
+    // Planets
+const neptune = new Planet(neptuneSource, 0.9, 8, 0)
 scene.add(neptune.group)
 
-const uranus = new Planet(uranusSource, 2, 8.3, 0)
+const uranus = new Planet(uranusSource, 1, 5.6, 0)
 scene.add(uranus.group)
 
-const saturn = new Planet(saturnSource, 1, 5.5, 0)
+const saturn = new Planet(saturnSource, 1, 3, 0)
 scene.add(saturn.group)
 
-const jupiter = new Planet(jupiterSource, 1.2, 2, 0)
+const jupiter = new Planet(jupiterSource, 1.2, 0.1, 0)
 scene.add(jupiter.group)
 
-const mars = new Planet(marsSource, 1, -0.7, 0)
+const mars = new Planet(marsSource, 1, -2.3, 0)
 scene.add(mars.group)
 
-const earth = new Planet(earthSource, 1, -3, 0)
+const earth = new Planet(earthSource, 1, -4, 0)
 scene.add(earth.group)
 
-const venus = new Planet(venusSource, 1, -5.5, 0)
+const venus = new Planet(venusSource, 1, -6, 0)
 scene.add(venus.group)
 
 const mercury = new Planet(mercurySource, 1, -7.5, 0)
@@ -84,8 +79,12 @@ scene.add(mercury.group)
 const sun = new Planet(sunSource, 1, -14, 0)
 scene.add(sun.group)
 
-// Skybox
 
+// ------------------------
+// Skybox
+// ------------------------
+
+const textureLoader = new THREE.TextureLoader()
 const cubeSize = new THREE.BoxGeometry(sizes.width, sizes.height, sizes.height/2)
 const skyBoxTexture = textureLoader.load(skyBoxSource)
 const cubeMaterials = [
@@ -99,49 +98,33 @@ const cubeMaterials = [
 let cube = new THREE.Mesh(cubeSize, cubeMaterials)
 scene.add(cube)
 const raycaster = new THREE.Raycaster()
+
+
 // ------------------------
 // Camera
 // ------------------------
 
-
 const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.5 , 1000)
-camera.position.z = 14
-camera.lookAt(new THREE.Vector3(0,0,0));
-
+camera.position.z = 15
+camera.lookAt(new THREE.Vector3(0,0,0))
 const xAxis = new THREE.Vector3(
     camera.matrixWorld.elements[0], 
     camera.matrixWorld.elements[1], 
-    camera.matrixWorld.elements[2],)
-const yAxis = new THREE.Vector3(
-    camera.matrixWorld.elements[4], 
-    camera.matrixWorld.elements[5], 
-    camera.matrixWorld.elements[6],)
-// camera.translateOnAxis(xAxis, 11.5)
-// camera.translateOnAxis(yAxis, 0.3)
-// camera.translateX(5.5)
-// camera.lookAt(new THREE.Vector3(5.5, 0, 0))
+    camera.matrixWorld.elements[2])
+
+camera.translateOnAxis(xAxis, -0.5)
 scene.add(camera)
-
-// const helper = new THREE.CameraHelper( camera )
-// scene.add( helper )
-
-console.log(camera.matrixWorld.elements[0])
-console.log(camera.matrixWorld.elements[1])
-console.log(camera.matrixWorld.elements[2])
-console.log(camera.matrixWorld.elements[4])
-console.log(camera.matrixWorld.elements[5])
-console.log(camera.matrixWorld.elements[6])
 
 
 // ------------------------
 // Renderer
 // ------------------------
 
-const render = new THREE.WebGLRenderer()
-render.setSize(sizes.width,sizes.height)
-render.setPixelRatio(window.devicePixelRatio)
+const renderer = new THREE.WebGLRenderer()
+renderer.setSize(sizes.width,sizes.height)
+renderer.setPixelRatio(window.devicePixelRatio)
 
-document.body.appendChild(render.domElement)
+document.body.appendChild(renderer.domElement)
 
 
 // ------------------------
@@ -152,11 +135,67 @@ window.addEventListener('resize',()=>
 {
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
-    render.setSize(sizes.width,sizes.height)
+    renderer.setSize(sizes.width,sizes.height)
     camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
     console.log ('resize')
 })
+
+// ------------------------
+// Move Camera
+// ------------------------
+
+const moveCamera = (cameraMoveX,cameraMoveZ) => {
+    TweenLite.to(
+        camera.position,
+        1,
+        {
+            x: camera.position.x + cameraMoveX,
+            z: camera.position.z + cameraMoveZ,
+            ease: 'Power3.easeInOut'
+        }
+    )
+}
+
+document.addEventListener('click', () =>
+{
+    if(hoverNeptune)
+    {
+        moveCamera(9.1, -13.5)
+    }if(hoverUranus)
+    {
+        moveCamera(6.8, -13)
+        neptune.group.visible = false
+    }if(hoverSaturn)
+    {
+        moveCamera(4.3, -13)
+        uranus.group.visible = false
+    }if(hoverJupiter)
+    {
+        moveCamera(1.9, -11.5)
+        saturn.group.visible = false
+    }if(hoverMars)
+    {
+        moveCamera(-1.1, -13.5)
+        jupiter.group.visible = false
+    }if(hoverEarth)
+    {
+        moveCamera(-2.9, -13.4)
+        mars.group.visible = false
+    }if(hoverVenus)
+    {
+        moveCamera(-4.9, -13.5)
+        earth.group.visible = false
+    }if(hoverMercury)
+    {
+        moveCamera(-6.5, -14)
+        venus.group.visible = false
+    }if(hoverSun)
+    {
+        moveCamera(-20, 2)
+    }
+})
+
 
 // ------------------------
 // Cursor
@@ -177,56 +216,62 @@ window.addEventListener('mousemove',(_event) =>
 // Loop
 // ------------------------
 
+    // Initializing hover boolean
+let hoverNeptune = false
+let hoverUranus = false
+let hoverSaturn = false
+let hoverJupiter = false
+let hoverMars = false
+let hoverEarth = false
+let hoverVenus = false
+let hoverMercury = false
+let hoverSun = false
+
+    // Loop
 const loop = () =>
 {
     requestAnimationFrame(loop)
 
-        // Cursor raycasting
-        const raycasterCursor = new THREE.Vector2(cursor.x * 2, - cursor.y * 2)
-        raycaster.setFromCamera(raycasterCursor, camera)
-    
-        const intersectNeptune = raycaster.intersectObject(neptune.group, true)
-        const intersectUranus = raycaster.intersectObject(uranus.group, true)
-        const intersectSaturn = raycaster.intersectObject(saturn.group, true)
-        const intersectJupiter = raycaster.intersectObject(jupiter.group, true)
-        const intersectMars = raycaster.intersectObject(mars.group, true)
-        const intersectEarth = raycaster.intersectObject(earth.group, true)
-        const intersectVenus = raycaster.intersectObject(venus.group, true)
-        const intersectMercury = raycaster.intersectObject(mercury.group, true)
-        const intersectSun = raycaster.intersectObject(sun.group, true)
+    // Cursor raycasting
+    const raycasterCursor = new THREE.Vector2(cursor.x * 2, - cursor.y * 2)
+    raycaster.setFromCamera(raycasterCursor, camera)
 
-        if(intersectNeptune.length)
-        {
-            console.log('Neptune')
-        }else if(intersectUranus.length)
-        {
-            console.log('Uranus')
-        }else if(intersectSaturn.length)
-        {
-            console.log('Saturn')
-        }else if(intersectJupiter.length)
-        {
-            console.log('Jupiter')
-        }else if(intersectMars.length)
-        {
-            console.log('Mars')
-        }else if(intersectEarth.length)
-        {
-            console.log('Earth')
-        }else if(intersectVenus.length)
-        {
-            console.log('Venus')
-        }else if(intersectMercury.length)
-        {
-            console.log('Mercury')
-        }else if(intersectSun.length)
-        {
-            console.log('Sun')
-        }
+    const intersectNeptune = raycaster.intersectObject(neptune.group, true)
+    const intersectUranus = raycaster.intersectObject(uranus.group, true)
+    const intersectSaturn = raycaster.intersectObject(saturn.group, true)
+    const intersectJupiter = raycaster.intersectObject(jupiter.group, true)
+    const intersectMars = raycaster.intersectObject(mars.group, true)
+    const intersectEarth = raycaster.intersectObject(earth.group, true)
+    const intersectVenus = raycaster.intersectObject(venus.group, true)
+    const intersectMercury = raycaster.intersectObject(mercury.group, true)
+    const intersectSun = raycaster.intersectObject(sun.group, true)
 
+    // Detect Hover on planets
+    if(intersectNeptune.length){ hoverNeptune = true }
+    else if(intersectUranus.length){ hoverUranus = true }
+    else if(intersectSaturn.length){ hoverSaturn = true }
+    else if(intersectJupiter.length){ hoverJupiter = true }
+    else if(intersectMars.length){ hoverMars = true }
+    else if(intersectEarth.length){ hoverEarth = true }
+    else if(intersectVenus.length){ hoverVenus = true }
+    else if(intersectMercury.length){ hoverMercury = true }
+    else if(intersectSun.length){ hoverSun = true }
+    else{
+        hoverNeptune = false
+        hoverUranus = false
+        hoverSaturn = false
+        hoverJupiter = false
+        hoverMars = false
+        hoverEarth = false
+        hoverVenus = false
+        hoverMercury = false
+        hoverSun = false
+    }
 
-    render.render(scene, camera)
+    // RENDER
+    renderer.render(scene, camera)
 
 }
 
 loop()
+
