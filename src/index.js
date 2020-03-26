@@ -98,7 +98,7 @@ const cubeMaterials = [
     ]
 let cube = new THREE.Mesh(cubeSize, cubeMaterials)
 scene.add(cube)
-
+const raycaster = new THREE.Raycaster()
 // ------------------------
 // Camera
 // ------------------------
@@ -180,6 +180,17 @@ window.addEventListener('mousemove',(_event) =>
 const loop = () =>
 {
     requestAnimationFrame(loop)
+
+        // Cursor raycasting
+        const raycasterCursor = new THREE.Vector2(cursor.x * 2, - cursor.y * 2)
+        raycaster.setFromCamera(raycasterCursor, camera)
+    
+        const intersects = raycaster.intersectObject(earth.group, true)
+        if(intersects.length)
+        {
+            console.log('hover')
+        }
+
 
     render.render(scene, camera)
 
