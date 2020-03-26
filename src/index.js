@@ -51,7 +51,7 @@ const sunSource = '/models/planets/sun.glb'
 const astronauteSource = '/models/astronautes/astronaute.glb'
 
     // Astronaute
-const astronaute = new Planet(astronauteSource, 0.03, 0, 2)
+const astronaute = new Planet(astronauteSource, 0.03, 1.35, 2)
 scene.add(astronaute.group)
 console.log(astronaute)
 
