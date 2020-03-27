@@ -202,23 +202,15 @@ const uranusInfo = document.querySelector('.uranus-info')
 const neptuneInfo = document.querySelector('.neptune-info')
 const sunInfo = document.querySelector('.sun-info')
 
-let clickable = true
-
-let mercuryZoom = false
-let venusZoom = false
-let earthZoom = false
-let marsZoom = false
-let jupiterZoom = false
-let saturnZoom = false
-let uranusZoom = false
-let neptuneZoom = false
-let sunZoom = false
+let cameraIsCenter = true
 
 
 
 // ------------------------
 // Move Camera
 // ------------------------
+console.log(camera.position.x)
+console.log(camera.position.z)
 
 const moveCamera = (cameraMoveX,cameraMoveZ) => {
     TweenLite.to(
@@ -228,42 +220,35 @@ const moveCamera = (cameraMoveX,cameraMoveZ) => {
             x: camera.position.x + cameraMoveX,
             z: camera.position.z + cameraMoveZ,
             ease: 'Power3.easeInOut'
-        }
+        },
+        cameraIsCenter = false
     )
 }
 
-const defaultCamera = (xMove, zMove) => {
+const defaultCamera = () => {
     TweenLite.to(
         camera.position,
         1,
         {
-            x: camera.position.x - xMove,
-            z: camera.position.z + zMove,
+            x:  0.5,
+            z:  15,
             ease: 'Power3.easeInOut'
-        }
+        },
+        cameraIsCenter = true
     )
 }
 
+console.log
+
 exitButton.addEventListener('click', () => 
 { 
-    if(mercuryZoom){defaultCamera(6.5, 14)
-        clickable = true}
-    else if(jupiterZoom){defaultCamera(-2.4, 11.5)
-        clickable = true}
-    else if(venusZoom){defaultCamera(4.9, 13.5)}
-    else if(earthZoom){defaultCamera(2.9, 13.4)}
-    else if(marsZoom){defaultCamera(1.1, 13.5)}
-    else if(saturnZoom){defaultCamera(-4.3, 13)}
-    else if(uranusZoom){defaultCamera(-6.8, 13)}
-    else if(neptuneZoom){defaultCamera(-9.1, 13.5)}
-    else if(sunZoom){defaultCamera(20, -2)}
+    defaultCamera()
+
 })
-
-
 
 document.addEventListener('click', () =>
 {
-    if(hoverNeptune && clickable)
+    if(hoverNeptune && cameraIsCenter)
     {
         moveCamera(9.1, -13.5)
         neptuneInfo.classList.remove('is-hidden')
@@ -278,61 +263,61 @@ document.addEventListener('click', () =>
         exitButton.classList.remove('is-hidden')
         uranusZoom = true
         clickable = false
-    }if(hoverSaturn && clickable)
+    }if(hoverSaturn && cameraIsCenter)
     {
         moveCamera(4.3, -13)
         uranus.group.visible = false
         saturnInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
         SaturnZoom = true
-        clickable = false
-    }if(hoverJupiter && clickable)
+        cameraIsCenter = false
+    }if(hoverJupiter && cameraIsCenter)
     {
         moveCamera(2.4, -11.5)
         saturn.group.visible = false
         jupiterInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
         jupiterZoom = true
-        clickable = false
-    }if(hoverMars && clickable)
+        cameraIsCenter = false
+    }if(hoverMars && cameraIsCenter)
     {
         moveCamera(-1.1, -13.5)
         jupiter.group.visible = false
         marsInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
         marsZoom = true
-        clickable = false
-    }if(hoverEarth && clickable)
+        cameraIsCenter = false
+    }if(hoverEarth && cameraIsCenter)
     {
         moveCamera(-2.9, -13.4)
         mars.group.visible = false
         earthInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
         earthZoom = true
-        clickable = false
-    }if(hoverVenus && clickable)
+        cameraIsCenter = false
+    }if(hoverVenus && cameraIsCenter)
     {
         moveCamera(-4.9, -13.5)
         earth.group.visible = false
         venusInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
         venusZoom = true
-        clickable = false
-    }if(hoverMercury && clickable)
+        cameraIsCenter = false
+    }if(hoverMercury && cameraIsCenter)
     {
         moveCamera(-6.5, -14)
         venus.group.visible = false
         mercuryInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
         mercuryZoom = true
-        clickable = false
-    }if(hoverSun && clickable)
+        cameraIsCenter = false
+    }if(hoverSun && cameraIsCenter)
     {
         moveCamera(-20, 2)
         sunInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
         sunZoom = true
-        clickable = false
+        cameraIsCenter = false
     }
 })
 
