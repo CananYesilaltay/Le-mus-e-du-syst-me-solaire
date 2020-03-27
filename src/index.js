@@ -1,4 +1,5 @@
 import './style/main.styl'
+import './style/home.styl'
 import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
@@ -7,6 +8,7 @@ import Planet from './javascript/Planet.js'
 // import Fiche from './javascript/Fiche.js'
 import skyBoxSource from './images/skybox.jpg'
 import { TweenLite } from 'gsap/all'
+import imageSource from './images/astro-rocket.svg'
 
 
 // ------------------------
@@ -18,6 +20,21 @@ sizes.width = window.innerWidth
 sizes.height = window.innerHeight
 console.log(sizes.width)
 console.log(sizes.height)
+
+// ------------------------
+// Welcome pop up 
+// ------------------------
+const popUpContainer = document.querySelector('.pop-up-container')
+const astroRocket = new Image()
+astroRocket.src = imageSource
+popUpContainer.appendChild(astroRocket)
+
+const popUpButton = document.querySelector('.pop-up-button')
+const popUpBackground = document.querySelector('.pop-up-background')
+popUpButton.addEventListener('click', () =>
+{
+    popUpBackground.classList.add('hidden-item')
+})
 
 
 // ------------------------
