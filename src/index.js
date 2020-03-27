@@ -219,14 +219,11 @@ const uranusInfo = document.querySelector('.uranus-info')
 const neptuneInfo = document.querySelector('.neptune-info')
 const sunInfo = document.querySelector('.sun-info')
 
-let clickOK = true
 
 
 // ------------------------
 // Move Camera
 // ------------------------
-console.log(camera.position.x)
-console.log(camera.position.z)
 
 const moveCamera = (cameraMoveX,cameraMoveZ) => {
     TweenLite.to(
@@ -237,20 +234,59 @@ const moveCamera = (cameraMoveX,cameraMoveZ) => {
             z: camera.position.z + cameraMoveZ,
             ease: 'Power3.easeInOut'
         }
-    ),
-    clickOK = false
+    )
 }
+
+let onJupiter = false
+let onMars = false
+let onEarth = false
+let onVenus = false
+let onMercury = false
+let onSaturn = false
+let onUranus = false
+let onNeptune = false
+let onSun = false
+
 
 const defaultCamera = () => {
     TweenLite.to(
         camera.position,
         1,
         {
-            x:  0.5,
+            x:  -0.5,
             z:  15,
             ease: 'Power3.easeInOut'
         }
     )
+    if(onSun == true){
+        sunInfo.classList.add('is-hidden')
+        exitButton.classList.add('is-hidden')
+    }else if(onMercury == true){
+        mercuryInfo.classList.add('is-hidden')
+        exitButton.classList.add('is-hidden')
+    }else if(onVenus == true){
+        venusInfo.classList.add('is-hidden')
+        exitButton.classList.add('is-hidden')
+    }else if(onEarth == true){
+        earthInfo.classList.add('is-hidden')
+        exitButton.classList.add('is-hidden')
+    }else if(onMars == true){
+        marsInfo.classList.add('is-hidden')
+        exitButton.classList.add('is-hidden')
+    }else if(onJupiter == true){
+        jupiterInfo.classList.add('is-hidden')
+        exitButton.classList.add('is-hidden')
+    }else if(onSaturn == true){
+        saturnInfo.classList.add('is-hidden')
+        exitButton.classList.add('is-hidden')
+    }else if(onUranus == true){
+        uranusInfo.classList.add('is-hidden')
+        exitButton.classList.add('is-hidden')
+    }else if(onNeptune == true){
+        neptuneInfo.classList.add('is-hidden')
+        exitButton.classList.add('is-hidden')
+    }else{
+    }
 }
 
 exitButton.addEventListener('click', () => 
@@ -260,53 +296,66 @@ exitButton.addEventListener('click', () =>
 
 document.addEventListener('click', () =>
 {
-    if(hoverNeptune && clickOK)
+    if(hoverNeptune && !hoverExit)
     {
         moveCamera(9.1, -13.5)
         neptuneInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
-    }if(hoverUranus && clickOK)
+        onNeptune = true
+    }if(hoverUranus && !hoverExit)
     {
         moveCamera(6.8, -13)
         uranusInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
-    }if(hoverSaturn && clickOK)
+        onUranus = true
+    }if(hoverSaturn && !hoverExit)
     {
         moveCamera(4.3, -13)
         saturnInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
-    }if(hoverJupiter && clickOK)
+        onSaturn = true
+    }if(hoverJupiter && !hoverExit)
     {
         moveCamera(2.3, -11.5)
         jupiterInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
-    }if(hoverMars && clickOK)
+        onJupiter = true
+        console.log(onJupiter)
+    }if(hoverMars && !hoverExit)
     {
         moveCamera(-1.1, -13.5)
         marsInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
-    }if(hoverEarth && clickOK)
+        onMars = true
+    }if(hoverEarth && !hoverExit)
     {
         moveCamera(-2.9, -13.4)
         earthInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
-    }if(hoverVenus && clickOK)
+        onEarth = true
+    }if(hoverVenus && !hoverExit)
     {
         moveCamera(-4.9, -13.5)
         venusInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
-    }if(hoverMercury && clickOK)
+        onVenus = true
+    }if(hoverMercury && !hoverExit)
     {
         moveCamera(-6.5, -14)
         mercuryInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
-    }if(hoverSun && clickOK)
+        onMercury = true
+    }if(hoverSun && !hoverExit)
     {
         moveCamera(-20, 2)
         sunInfo.classList.remove('is-hidden')
         exitButton.classList.remove('is-hidden')
+        onSun = true
     }
 })
+
+
+
 
 
 
@@ -340,6 +389,7 @@ let hoverEarth = false
 let hoverVenus = false
 let hoverMercury = false
 let hoverSun = false
+let hoverExit = false
 
 
     // Loop
@@ -383,6 +433,7 @@ const loop = () =>
         hoverSun = false
     }
 
+
     //rotation
     jupiter.group.rotation.y += 0.001 
     //jupiter.group.rotation.x = -0.5
@@ -399,6 +450,7 @@ const loop = () =>
     effectComposer.render(scene, camera)
     // labelRenderer.render( scene, cameraCSS2 );
 }
+
 
 loop()
 
