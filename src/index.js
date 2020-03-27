@@ -52,8 +52,8 @@ scene.add(ambientLight)
 // Objects
 // ------------------------
 
-const axesHelper = new THREE.AxesHelper( 5 )
-scene.add( axesHelper )
+// const axesHelper = new THREE.AxesHelper( 5 )
+// scene.add( axesHelper )
 
     // Object Sources
 const neptuneSource = '/models/planets/neptune.glb'
